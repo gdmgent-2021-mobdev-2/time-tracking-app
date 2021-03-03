@@ -1,5 +1,13 @@
+import { Link } from 'react-router-dom';
+import { Routes } from '../../../core/routing';
+
 const items = [{
     'label': 'Projects',
+    'route': Routes.Projects,
+    'icon': null,
+}, {
+    'label': 'Clients',
+    'route': Routes.Clients,
     'icon': null,
 }]
 
@@ -10,11 +18,8 @@ const Sidebar = () => {
                 <ul className="nav flex-column">
                     {
                         items.map((item) => (
-                            <li className="nav-item" key={item.label}>
-                                <a className="nav-link active" aria-current="page" href="/">
-                                    {/* TODO icon */}
-                                    {item.label}
-                                </a>
+                            <li key={item.route} className="nav-item">
+                                <Link className="nav-link" to={item.route}>{item.label}</Link>
                             </li>
                         ))
                     }

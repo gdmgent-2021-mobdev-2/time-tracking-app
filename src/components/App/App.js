@@ -1,8 +1,8 @@
 import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
+import MainRouting from './MainRouting';
 
 const App = () => {
-
     return (
         <>
             <Header />
@@ -10,7 +10,7 @@ const App = () => {
                 <div className="row">
                     <Sidebar />
                     <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                        <h1>Welkom</h1>
+                        <MainRouting />
                     </main>
                 </div>
             </div>
