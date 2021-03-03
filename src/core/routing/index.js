@@ -1,6 +1,7 @@
 const Routes = Object.freeze({
     Projects: '/projects',
     ProjectsDetail: '/projects/:id',
+    ProjectsDetailAddLog: '/projects/:id/add',
     Clients: '/clients'
 });
 

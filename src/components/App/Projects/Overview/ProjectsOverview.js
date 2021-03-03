@@ -1,11 +1,40 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { route, Routes } from '../../../../core/routing';
+import useFetch from '../../../../core/hooks/useFetch';
+import Spinner from '../../../Design/Spinner';
+import Alert from '../../../Design/Alert';
+import Button from '../../../Design/Button';
 
 const ProjectsOverview = () => {
+    const {
+        data: projects,
+        error,
+        refresh,
+        isLoading
+    } = useFetch('/data.json');
+
+    if (isLoading) {
+        return <Spinner />;
+    }
+
+    if (error) {
+        return <Alert color="danger">{error}</Alert>;
+    }
+
     return (
         <>
             <h1>Projects</h1>
-            <Link to={route(Routes.ProjectsDetail, { id: 1 })}>Project 1</Link>
+            <Button color="secondary" onClick={() => refresh()}>Refresh</Button>
+            <ul>
+                { projects.map((project) => (
+                    <li key={project.id}>
+                        <Link to={route(Routes.ProjectsDetail, {id: project.id})}>
+                            { project.name }
+                        </Link>
+                    </li>
+                ))}
+            </ul>
         </>
     )
 };
