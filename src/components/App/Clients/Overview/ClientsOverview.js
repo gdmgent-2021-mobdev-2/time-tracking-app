@@ -1,17 +1,15 @@
-import { Link } from 'react-router-dom';
-import { route, Routes } from '../../../../core/routing';
 import useFetch from '../../../../core/hooks/useFetch';
 import Spinner from '../../../Design/Spinner';
 import Alert from '../../../Design/Alert';
 import Button from '../../../Design/Button';
 
-const ProjectsOverview = () => {
+const ClientsOverview = () => {
     const {
-        data: projects,
+        data: clients,
         error,
         refresh,
         isLoading
-    } = useFetch('/data.json');
+    } = useFetch('/clients');
 
     if (isLoading) {
         return <Spinner />;
@@ -26,16 +24,13 @@ const ProjectsOverview = () => {
             <h1>Projects</h1>
             <Button color="secondary" onClick={() => refresh()}>Refresh</Button>
             <ul>
-                { projects.map((project) => (
-                    <li key={project.id}>
-                        <Link to={route(Routes.ProjectsDetail, {id: project.id})}>
-                            { project.name }
-                        </Link>
-                    </li>
+                {clients.map((client) => (
+                    <li key={client._id}>{client.name}</li>
                 ))}
             </ul>
         </>
     )
+
 };
 
-export default ProjectsOverview;
+export default ClientsOverview;
