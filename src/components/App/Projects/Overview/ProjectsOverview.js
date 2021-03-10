@@ -11,7 +11,7 @@ const ProjectsOverview = () => {
         error,
         refresh,
         isLoading
-    } = useFetch('/data.json');
+    } = useFetch('/projects');
 
     if (isLoading) {
         return <Spinner />;
@@ -28,7 +28,7 @@ const ProjectsOverview = () => {
             <ul>
                 { projects.map((project) => (
                     <li key={project.id}>
-                        <Link to={route(Routes.ProjectsDetail, {id: project.id})}>
+                        <Link to={route(Routes.ProjectsDetail, {id: project._id})}>
                             { project.name }
                         </Link>
                     </li>
