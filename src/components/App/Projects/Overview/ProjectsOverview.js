@@ -10,7 +10,7 @@ const ProjectsOverview = () => {
         data: projects,
         error,
         refresh,
-        isLoading
+        isLoading,
     } = useFetch('/projects');
 
     if (isLoading) {
@@ -27,7 +27,7 @@ const ProjectsOverview = () => {
             <Button color="secondary" onClick={() => refresh()}>Refresh</Button>
             <ul>
                 { projects.map((project) => (
-                    <li key={project.id}>
+                    <li key={project._id}>
                         <Link to={route(Routes.ProjectsDetail, {id: project._id})}>
                             { project.name }
                         </Link>
