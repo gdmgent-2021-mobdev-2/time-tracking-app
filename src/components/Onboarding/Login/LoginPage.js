@@ -6,7 +6,6 @@ import Button from '../../Design/Button';
 import * as yup from 'yup';
 import { getValidationErrors } from '../../../core/utils/validation';
 import { login } from '../../../core/modules/auth/api';
-import Alert from '../../Design/Alert';
 import { handleApiResult } from '../../../core/utils/api';
 import ApiError from '../../../core/error/ApiError';
 import AppError from '../../../core/error/AppError';

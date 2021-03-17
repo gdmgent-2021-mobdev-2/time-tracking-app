@@ -2,17 +2,17 @@ import { Link } from 'react-router-dom';
 import { route, Routes } from '../../../../../core/routing';
 import AdminContainer from '../../../../Shared/Admin/AdminContainer';
 
-const ClientDetail = ({ client }) => {
+const ProjectDetail = ({ project }) => {
     return (
         <>
-            <h1>{client.company}</h1>
+            <h1>{project.name}</h1>
             <AdminContainer>
-                <Link to={route(Routes.Clients.Edit, { id: client.id })}>
-                    Edit client
+                <Link to={route(Routes.Projects.Edit, { id: project.id })}>
+                    Edit project
                 </Link>
             </AdminContainer>
         </>
     );
 };
 
-export default ClientDetail;
+export default ProjectDetail;

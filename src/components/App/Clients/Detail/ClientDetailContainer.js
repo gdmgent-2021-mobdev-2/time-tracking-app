@@ -2,13 +2,13 @@ import { useCallback } from 'react';
 import useFetch from '../../../../core/hooks/useFetch';
 import { fetchClient } from '../../../../core/modules/clients/api';
 import Spinner from '../../../Design/Spinner';
-import Alert from '../../../Design/Alert';
 import { useParams } from 'react-router';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Routes } from '../../../../core/routing';
 import EditClient from './Edit/EditClient';
 import ClientDetail from './Detail/ClientDetail';
 import AdminRoute from '../../../Shared/Admin/AdminRoute';
+import ErrorAlert from '../../../Shared/ErrorAlert';
 
 const ClientDetailContainer = () => {
     const { id } = useParams();
@@ -31,17 +31,17 @@ const ClientDetailContainer = () => {
     }
 
     if (error) {
-        return <Alert color="danger">{error}</Alert>;
+        return <ErrorAlert error={error} />;
     }
 
     return (
         <Switch>
-            <AdminRoute path={Routes.ClientsEdit}>
+            <AdminRoute path={Routes.Clients.Edit}>
                 <EditClient
                     client={client}
                     onUpdate={(data) => setData(data)}/>
             </AdminRoute>
-            <Route path={Routes.ClientsDetail}>
+            <Route path={Routes.Clients.Detail}>
                 <ClientDetail client={client} />
             </Route>
             <Redirect to={Routes.Clients} />

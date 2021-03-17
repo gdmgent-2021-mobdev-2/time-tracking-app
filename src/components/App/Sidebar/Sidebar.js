@@ -3,11 +3,11 @@ import { Routes } from '../../../core/routing';
 
 const items = [{
     'label': 'Projects',
-    'route': Routes.Projects,
+    'route': Routes.Projects.Index,
     'icon': null,
 }, {
     'label': 'Clients',
-    'route': Routes.Clients,
+    'route': Routes.Clients.Index,
     'icon': null,
 }]
 

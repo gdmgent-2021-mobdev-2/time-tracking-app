@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from '../../Auth/AuthProvider';
 import { isAdmin } from '../../../core/modules/auth/utils';
 
@@ -8,7 +8,7 @@ const AdminRoute = ({ path, children }) => {
     const allowed = isAdmin(user);
 
     if (!allowed) {
-        return null;
+        return <Redirect to="/" />;
     }
 
     return (

@@ -12,7 +12,9 @@ const storeUser = (user) => {
     localStorage.setItem(KEY_USER, JSON.stringify(user));
 };
 
-export default {
+const storage = {
     storeUser,
     getUser,
-}
+};
+
+export default storage;

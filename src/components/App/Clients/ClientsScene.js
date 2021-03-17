@@ -5,21 +5,21 @@ import CreateClient from './New/CreateClient';
 import ClientDetailContainer from './Detail/ClientDetailContainer';
 import AdminRoute from '../../Shared/Admin/AdminRoute';
 
-const Clients = () => {
+const ClientsScene = () => {
     return (
         <Switch>
-            <AdminRoute path={Routes.ClientsNew}>
+            <AdminRoute path={Routes.Clients.New}>
                 <CreateClient />
             </AdminRoute>
-            <Route path={Routes.ClientsDetail}>
+            <Route path={Routes.Clients.Detail}>
                 <ClientDetailContainer />
             </Route>
-            <Route path={Routes.Clients}>
+            <Route path={Routes.Clients.Index}>
                 <ClientsOverview />
             </Route>
-            <Redirect to={Routes.Clients} />
+            <Redirect to={Routes.Clients.Index} />
         </Switch>
     );
 };
 
-export default Clients;
+export default ClientsScene;

@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import ClientForm from '../../Form/ClientForm';
 import useAuthApi from '../../../../../core/hooks/useAuthApi';
-import { updateClient } from '../../../../../core/modules/clients/api';
+import { updateProject } from '../../../../../core/modules/projects/api';
 import ErrorAlert from '../../../../Shared/ErrorAlert';
 import { useHistory } from 'react-router';
 import { route, Routes } from '../../../../../core/routing';
+import ProjectForm from '../../Form/ProjectForm';
 
-const EditClient = ({ client, onUpdate }) => {
+const EditProject = ({ project, onUpdate }) => {
     const withAuth = useAuthApi();
     const history = useHistory();
     const [isLoading, setIsLoading] = useState();
@@ -14,13 +14,13 @@ const EditClient = ({ client, onUpdate }) => {
 
     const handleSubmit = (data) => {
         setIsLoading(true);
-        withAuth(updateClient(data))
+        withAuth(updateProject(data))
             .then((data) => {
                 // let parent know data is updated
                 onUpdate(data);
                 // navigate to detail
                 history.push(
-                    route(Routes.Clients.Detail, {
+                    route(Routes.Projects.Detail, {
                         id: data._id,
                     }));
             })
@@ -32,17 +32,17 @@ const EditClient = ({ client, onUpdate }) => {
 
     return (
         <>
-            <h1>Edit client</h1>
+            <h1>Edit project</h1>
 
             <ErrorAlert error={error} />
 
-            <ClientForm
+            <ProjectForm
                 onSubmit={handleSubmit}
-                initialData={client}
+                initialData={project}
                 disabled={isLoading}
             />
         </>
     )
 };
 
-export default EditClient;
+export default EditProject;
