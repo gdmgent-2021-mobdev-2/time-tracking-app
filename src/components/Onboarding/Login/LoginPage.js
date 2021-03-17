@@ -7,8 +7,12 @@ import * as yup from 'yup';
 import { getValidationErrors } from '../../../core/utils/validation';
 import { login } from '../../../core/modules/auth/api';
 import Alert from '../../Design/Alert';
+import { handleApiResult } from '../../../core/utils/api';
+import ApiError from '../../../core/error/ApiError';
+import AppError from '../../../core/error/AppError';
+import ErrorAlert from '../../Shared/ErrorAlert';
 
-let schema = yup.object().shape({
+const schema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().required(),
 });
@@ -33,19 +37,21 @@ const LoginPage = ({ setUser }) => {
         e.preventDefault();
         schema.validate(data, { abortEarly: false }).then(() => {
             login(data)
-                .then((json) => {
-                    if (json.status === 200) {
-                        return json.json();
-                    }
-                    throw json.json();
-                })
+                .then(handleApiResult)
                 .then((data) => {
                     setUser(data);
                 })
                 .catch((e) => {
-                    console.log(e);
-                    setError(e);
-                })
+                    if (e instanceof ApiError) {
+                        if (e.isUnauthorized()) {
+                            setError(new AppError('Wrong combination'));
+                        } else {
+                            setError(e);
+                        }
+                    } else {
+                        setError(new AppError(e));
+                    }
+                });
 
         }).catch((err) => {
             setErrors(getValidationErrors(err));
@@ -55,7 +61,6 @@ const LoginPage = ({ setUser }) => {
     return (
         <Container>
             <div className="text-center">
-                { error && <Alert color="danger">{ error.message || 'Something went wrong' }</Alert> }
                 <form className={Styles['form-signin']} onSubmit={handleSubmit} noValidate={true}>
                     <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
 
@@ -64,6 +69,8 @@ const LoginPage = ({ setUser }) => {
 
                     <label htmlFor="password">Password</label>
                     <Input type="password" name="password" value={data.password} onChange={handleChange} error={errors.password} />
+
+                    <ErrorAlert error={error} />
 
                     <Button color="primary" type="submit">Sign in</Button>
                 </form>

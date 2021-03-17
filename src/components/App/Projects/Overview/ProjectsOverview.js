@@ -4,6 +4,7 @@ import useFetch from '../../../../core/hooks/useFetch';
 import Spinner from '../../../Design/Spinner';
 import Alert from '../../../Design/Alert';
 import Button from '../../../Design/Button';
+import { fetchProjects } from '../../../../core/modules/projects/api';
 
 const ProjectsOverview = () => {
     const {
@@ -11,7 +12,7 @@ const ProjectsOverview = () => {
         error,
         refresh,
         isLoading,
-    } = useFetch('/projects');
+    } = useFetch(fetchProjects);
 
     if (isLoading) {
         return <Spinner />;

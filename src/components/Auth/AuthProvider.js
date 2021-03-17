@@ -3,21 +3,26 @@ import App from '../App/App';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Routes } from '../../core/routing';
 import LoginPage from '../Onboarding/Login/LoginPage';
-import { getUser, storeUser } from '../../core/storage';
+import storage from '../../core/storage';
 
 const AuthContext = createContext();
 
 const AuthProvider = () => {
-    const [user, setUser] = useState(getUser());
+    const [auth, setAuth] = useState(storage.getUser());
 
-    const updateUser = (user) => {
-        storeUser(user);
-        setUser(user);
+    const updateAuth = (user) => {
+        storage.storeUser(user);
+        setAuth(user);
     };
 
-    if (user) {
+    const logout = () => {
+        updateAuth(null);
+    };
+
+    if (auth && auth.user) {
+        const { user, token } = auth;
         return (
-            <AuthContext.Provider value={{ user, setUser: updateUser }}>
+            <AuthContext.Provider value={{ user, token, logout }}>
                 <App />
             </AuthContext.Provider>
         );
@@ -26,7 +31,7 @@ const AuthProvider = () => {
     return (
         <Switch>
             <Route path={Routes.Login}>
-                <LoginPage setUser={updateUser} />
+                <LoginPage setUser={updateAuth} />
             </Route>
             <Redirect to={Routes.Login} />
         </Switch>

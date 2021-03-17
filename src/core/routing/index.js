@@ -3,7 +3,8 @@ const Routes = Object.freeze({
     Projects: '/projects',
     ProjectsDetail: '/projects/:id',
     ProjectsDetailAddLog: '/projects/:id/add',
-    Clients: '/clients'
+    Clients: '/clients',
+    ClientsNew: '/clients/new',
 });
 
 // replaces : values with values from object

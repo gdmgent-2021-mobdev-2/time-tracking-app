@@ -1,29 +1,17 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../../components/Auth/AuthProvider';
+import useAuthApi from './useAuthApi';
 
-const useFetch = (url) => {
-    const { user } = useAuth();
-    const { token } = user;
+const useFetch = (apiCall) => {
+    const withAuth = useAuthApi();
 
     const [data, setData] = useState();
     const [error, setError] = useState();
 
     const fetchData = useCallback((isCurrent = true) => {
-        fetch(`${process.env.REACT_APP_BASE_API}${url}`, {
-            headers: {
-                authorization: `bearer ${token}`,
-            }
-        })
-            .then((json) => {
-                if (json.status === 404) {
-                    throw new Error('Not found');
-                }
-                return json;
-            })
-            .then((json) => json.json())
+        withAuth(apiCall())
             .then((data) => isCurrent && setData(data))
-            .catch((error) => isCurrent && setError(String(error)));
-    }, [url, token]);
+            .catch((error) => isCurrent && setError(error));
+    }, [apiCall, withAuth]);
 
     const refresh = () => {
         fetchData();
@@ -32,7 +20,7 @@ const useFetch = (url) => {
     useEffect(() => {
         setData(null);
         setError(null);
-        if (url) {
+        if (apiCall) {
             let isCurrent = true;
 
             fetchData(isCurrent);
@@ -41,7 +29,7 @@ const useFetch = (url) => {
                 isCurrent = false
             };
         }
-    }, [url, fetchData]);
+    }, [apiCall, fetchData]);
 
     const isLoading = !data && !error;
 

@@ -9,11 +9,10 @@ const getUser = () => {
 };
 
 const storeUser = (user) => {
-    console.log(user);
     localStorage.setItem(KEY_USER, JSON.stringify(user));
 };
 
-export {
+export default {
     storeUser,
     getUser,
 }

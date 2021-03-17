@@ -2,6 +2,9 @@ import useFetch from '../../../../core/hooks/useFetch';
 import Spinner from '../../../Design/Spinner';
 import Alert from '../../../Design/Alert';
 import Button from '../../../Design/Button';
+import { fetchClients } from '../../../../core/modules/clients/api';
+import { Link } from 'react-router-dom';
+import { Routes } from '../../../../core/routing';
 
 const ClientsOverview = () => {
     const {
@@ -9,7 +12,7 @@ const ClientsOverview = () => {
         error,
         refresh,
         isLoading
-    } = useFetch('/clients');
+    } = useFetch(fetchClients);
 
     if (isLoading) {
         return <Spinner />;
@@ -21,11 +24,13 @@ const ClientsOverview = () => {
 
     return (
         <>
-            <h1>Projects</h1>
-            <Button color="secondary" onClick={() => refresh()}>Refresh</Button>
+            <h1>Clients</h1>
+
+            <Link to={Routes.ClientsNew}>Create client</Link>
+
             <ul>
                 {clients.map((client) => (
-                    <li key={client._id}>{client.name}</li>
+                    <li key={client._id}>{client.company}</li>
                 ))}
             </ul>
         </>
