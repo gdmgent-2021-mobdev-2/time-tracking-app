@@ -4,8 +4,11 @@ import { Routes } from '../../../core/routing';
 import CreateClient from './New/CreateClient';
 import ClientDetailContainer from './Detail/ClientDetailContainer';
 import AdminRoute from '../../Shared/Admin/AdminRoute';
+import useTitle from '../../../core/hooks/useTitle';
 
 const ClientsScene = () => {
+    useTitle('Clients');
+
     return (
         <Switch>
             <AdminRoute path={Routes.Clients.New}>

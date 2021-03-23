@@ -40,7 +40,6 @@ const useForm = (schema, initialData) => {
 
     useEffect(() => {
         if (isTouched) {
-            console.log(values);
             validate(values);
         }
     }, [validate, isTouched, values]);

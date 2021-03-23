@@ -4,8 +4,10 @@ import ProjectsOverview from './Overview/ProjectsOverview';
 import { Routes } from '../../../core/routing';
 import AdminRoute from '../../Shared/Admin/AdminRoute';
 import CreateProject from './New/CreateProject';
+import useTitle from '../../../core/hooks/useTitle';
 
 const ProjectsScene = () => {
+    useTitle('Projects');
     return (
         <Switch>
             <AdminRoute path={Routes.Projects.New}>

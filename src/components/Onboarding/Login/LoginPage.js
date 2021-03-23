@@ -10,6 +10,7 @@ import { handleApiResult } from '../../../core/utils/api';
 import ApiError from '../../../core/error/ApiError';
 import AppError from '../../../core/error/AppError';
 import ErrorAlert from '../../Shared/ErrorAlert';
+import useTitle from '../../../core/hooks/useTitle';
 
 const schema = yup.object().shape({
     email: yup.string().email().required(),
@@ -17,6 +18,7 @@ const schema = yup.object().shape({
 });
 
 const LoginPage = ({ setUser }) => {
+    useTitle('Login');
 
     const [data, setData] = useState({
         email: '',

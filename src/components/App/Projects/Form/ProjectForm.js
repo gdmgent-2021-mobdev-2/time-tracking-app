@@ -2,10 +2,11 @@ import Input from '../../../Design/Input';
 import Button from '../../../Design/Button';
 import * as yup from 'yup';
 import useForm from '../../../../core/hooks/useForm';
+import ClientSelect from '../../Clients/Select/ClientSelect';
 
 const schema = yup.object().shape({
     name: yup.string().required(),
-    clientId: yup.string().required(),
+    clientId: yup.string().required().nullable(),
 });
 
 const defaultData = {
@@ -31,12 +32,19 @@ const ProjectForm = ({ onSubmit, initialData = {}, disabled }) => {
 
     return (
         <form onSubmit={handleSubmit(handleData)} noValidate={true}>
-            <label htmlFor="name">Name</label>
             <Input type="text" name="name"
+                   label="Name"
                    value={values.name}
                    disabled={disabled}
                    onChange={handleChange}
                    error={errors.name}/>
+
+           <ClientSelect
+               name="clientId"
+               value={values.clientId}
+               disabled={disabled}
+               onChange={handleChange}
+               error={errors.clientId} />
 
             <Button type="submit" disabled={disabled}>{values._id ? 'Update' : 'Create'}</Button>
 
