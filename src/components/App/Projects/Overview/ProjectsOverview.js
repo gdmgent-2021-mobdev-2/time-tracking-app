@@ -10,14 +10,10 @@ import AdminContainer from '../../../Shared/Admin/AdminContainer';
 import Card from '../../../Design/Card';
 
 const ProjectsOverview = () => {
-    const {
-        data: projects,
-        error,
-        isLoading,
-    } = useFetch(fetchProjects);
+    const { data: projects, error, isLoading } = useFetch(fetchProjects);
 
     if (isLoading) {
-        return <Spinner/>;
+        return <Spinner />;
     }
 
     if (error) {
@@ -28,24 +24,31 @@ const ProjectsOverview = () => {
         <>
             <PageHeader title="Projects">
                 <AdminContainer>
-                    <LinkButton to={Routes.Projects.New}>Create project</LinkButton>
+                    <LinkButton to={Routes.Projects.New}>
+                        Create project
+                    </LinkButton>
                 </AdminContainer>
             </PageHeader>
 
             <ul className="row list-unstyled">
                 {projects.map((project) => (
                     <li className="col-sm-4 my-2" key={project._id}>
-                        <Link to={route(Routes.Projects.Detail, { id: project._id })}>
+                        <Link
+                            to={route(Routes.Projects.Detail, {
+                                id: project._id,
+                            })}>
                             <Card>
                                 <h2 className="h4">{project.name}</h2>
-                                <p className="text-black-50">{project.client.company}</p>
+                                <p className="text-black-50">
+                                    {project.client.company}
+                                </p>
                             </Card>
                         </Link>
                     </li>
                 ))}
             </ul>
         </>
-    )
+    );
 };
 
 export default ProjectsOverview;

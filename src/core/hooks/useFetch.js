@@ -7,11 +7,14 @@ const useFetch = (apiCall) => {
     const [data, setData] = useState();
     const [error, setError] = useState();
 
-    const fetchData = useCallback((isCurrent = true) => {
-        withAuth(apiCall())
-            .then((data) => isCurrent && setData(data))
-            .catch((error) => isCurrent && setError(error));
-    }, [apiCall, withAuth]);
+    const fetchData = useCallback(
+        (isCurrent = true) => {
+            withAuth(apiCall())
+                .then((data) => isCurrent && setData(data))
+                .catch((error) => isCurrent && setError(error));
+        },
+        [apiCall, withAuth]
+    );
 
     const refresh = () => {
         fetchData();
@@ -26,7 +29,7 @@ const useFetch = (apiCall) => {
             fetchData(isCurrent);
 
             return () => {
-                isCurrent = false
+                isCurrent = false;
             };
         }
     }, [apiCall, fetchData]);
@@ -39,7 +42,7 @@ const useFetch = (apiCall) => {
         error,
         refresh,
         isLoading,
-    }
+    };
 };
 
 export default useFetch;

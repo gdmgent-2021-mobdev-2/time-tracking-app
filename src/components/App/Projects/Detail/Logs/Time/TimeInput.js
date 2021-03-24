@@ -14,9 +14,9 @@ const TimeInput = ({ value, name, onChange, ...rest }) => {
         onChange({
             target: {
                 name: name,
-                value: (hours * 60) + minutes,
-            }
-        })
+                value: hours * 60 + minutes,
+            },
+        });
     };
 
     useEffect(() => {
@@ -30,9 +30,8 @@ const TimeInput = ({ value, name, onChange, ...rest }) => {
             onBlur={handleBlur}
             onChange={(e) => setTime(e.target.value)}
             {...rest}
-            />
-    )
-
+        />
+    );
 };
 
 export default TimeInput;

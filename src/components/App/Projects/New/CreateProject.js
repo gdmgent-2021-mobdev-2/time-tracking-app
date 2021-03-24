@@ -22,7 +22,7 @@ const CreateProject = () => {
             .catch((err) => {
                 setError(err);
                 setIsLoading(false);
-            })
+            });
     };
 
     return (
@@ -31,12 +31,9 @@ const CreateProject = () => {
 
             <ErrorAlert error={error} />
 
-            <ProjectForm
-                onSubmit={handleSubmit}
-                disabled={isLoading}
-            />
+            <ProjectForm onSubmit={handleSubmit} disabled={isLoading} />
         </>
-    )
+    );
 };
 
 export default CreateProject;

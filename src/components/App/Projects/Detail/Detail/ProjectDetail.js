@@ -9,7 +9,8 @@ const ProjectDetail = ({ project }) => {
         <>
             <PageHeader title={project.name}>
                 <AdminContainer>
-                    <LinkButton to={route(Routes.Projects.Edit, { id: project._id })}>
+                    <LinkButton
+                        to={route(Routes.Projects.Edit, { id: project._id })}>
                         Edit project
                     </LinkButton>
                 </AdminContainer>
@@ -17,7 +18,7 @@ const ProjectDetail = ({ project }) => {
 
             <dl>
                 <dt>Client</dt>
-                <dd>{ project.client.company }</dd>
+                <dd>{project.client.company}</dd>
             </dl>
 
             <LogsOverview projectId={project._id} />

@@ -17,12 +17,7 @@ const ProjectDetailContainer = () => {
         return fetchProject(id);
     }, [id]);
 
-    const {
-        data: project,
-        error,
-        setData,
-        isLoading
-    } = useFetch(apiCall);
+    const { data: project, error, setData, isLoading } = useFetch(apiCall);
 
     if (isLoading) {
         return <Spinner />;

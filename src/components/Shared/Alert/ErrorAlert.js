@@ -6,7 +6,7 @@ const ErrorAlert = ({ error }) => {
     }
 
     return (
-        <Alert color="danger">{ error.message || 'Something went wrong' }</Alert>
+        <Alert color="danger">{error.message || 'Something went wrong'}</Alert>
     );
 };
 

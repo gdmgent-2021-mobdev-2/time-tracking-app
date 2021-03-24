@@ -5,7 +5,9 @@ const LogoutButton = () => {
     const { logout, user } = useAuth();
 
     return (
-        <Button onClick={logout} color="outline-light">Sign out {user.name}</Button>
+        <Button onClick={logout} color="outline-light">
+            Sign out {user.name}
+        </Button>
     );
 };
 

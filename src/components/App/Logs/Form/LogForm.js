@@ -11,9 +11,22 @@ const getSchema = (options) => {
     return yup.object().shape({
         date: yup.string().required(),
         description: yup.string().required(),
-        duration: yup.number().required().nullable(),
-        projectId: options.selectProject ? yup.string().nullable().required() : yup.string().nullable(),
-        userId: options.selectUser ? yup.string().nullable().required() : yup.string().nullable(),
+        duration: yup
+            .number()
+            .required()
+            .nullable(),
+        projectId: options.selectProject
+            ? yup
+                  .string()
+                  .nullable()
+                  .required()
+            : yup.string().nullable(),
+        userId: options.selectUser
+            ? yup
+                  .string()
+                  .nullable()
+                  .required()
+            : yup.string().nullable(),
     });
 };
 
@@ -21,7 +34,7 @@ const defaultData = {
     date: format(new Date(), 'yyyy-MM-dd'),
     description: '',
     duration: null,
-}
+};
 
 const LogForm = ({ onSubmit, initialData = {}, options = {}, disabled }) => {
     const initial = {
@@ -29,12 +42,10 @@ const LogForm = ({ onSubmit, initialData = {}, options = {}, disabled }) => {
         ...initialData,
     };
 
-    const {
-        values,
-        errors,
-        handleChange,
-        handleSubmit,
-    } = useForm(getSchema(options), initial);
+    const { values, errors, handleChange, handleSubmit } = useForm(
+        getSchema(options),
+        initial
+    );
 
     const handleData = (values) => {
         onSubmit(values);
@@ -42,21 +53,27 @@ const LogForm = ({ onSubmit, initialData = {}, options = {}, disabled }) => {
 
     return (
         <form onSubmit={handleSubmit(handleData)} noValidate={true}>
-            <Input type="text" name="date"
-                   value={values.date}
-                   label="Date"
-                   disabled={disabled}
-                   onChange={handleChange}
-                   error={errors.date}/>
+            <Input
+                type="text"
+                name="date"
+                value={values.date}
+                label="Date"
+                disabled={disabled}
+                onChange={handleChange}
+                error={errors.date}
+            />
 
-            <Input type="text" name="description"
-                   value={values.description}
-                   label="Description"
-                   disabled={disabled}
-                   onChange={handleChange}
-                   error={errors.description}/>
+            <Input
+                type="text"
+                name="description"
+                value={values.description}
+                label="Description"
+                disabled={disabled}
+                onChange={handleChange}
+                error={errors.description}
+            />
 
-            { options.selectUser && (
+            {options.selectUser && (
                 <UserSelect
                     name="userId"
                     value={values.userId}
@@ -67,7 +84,7 @@ const LogForm = ({ onSubmit, initialData = {}, options = {}, disabled }) => {
                 />
             )}
 
-            { options.selectProject && (
+            {options.selectProject && (
                 <ProjectSelect
                     name="projectId"
                     value={values.projectId}
@@ -78,18 +95,20 @@ const LogForm = ({ onSubmit, initialData = {}, options = {}, disabled }) => {
                 />
             )}
 
-            <TimeInput name="duration"
-                   value={values.duration}
-                   label="Duration"
-                   disabled={disabled}
-                   onChange={handleChange}
-                   error={errors.duration}/>
+            <TimeInput
+                name="duration"
+                value={values.duration}
+                label="Duration"
+                disabled={disabled}
+                onChange={handleChange}
+                error={errors.duration}
+            />
 
-            <Button type="submit" disabled={disabled}>{values._id ? 'Update' : 'Create'}</Button>
-
+            <Button type="submit" disabled={disabled}>
+                {values._id ? 'Update' : 'Create'}
+            </Button>
         </form>
-    )
-
+    );
 };
 
 export default LogForm;

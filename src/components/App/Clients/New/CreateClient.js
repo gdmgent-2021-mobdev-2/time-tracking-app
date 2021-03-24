@@ -22,7 +22,7 @@ const CreateClient = () => {
             .catch((err) => {
                 setError(err);
                 setIsLoading(false);
-            })
+            });
     };
 
     return (
@@ -31,12 +31,9 @@ const CreateClient = () => {
 
             <ErrorAlert error={error} />
 
-            <ClientForm
-                onSubmit={handleSubmit}
-                disabled={isLoading}
-            />
+            <ClientForm onSubmit={handleSubmit} disabled={isLoading} />
         </>
-    )
+    );
 };
 
 export default CreateClient;

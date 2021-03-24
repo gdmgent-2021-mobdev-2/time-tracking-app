@@ -17,12 +17,7 @@ const ClientDetailContainer = () => {
         return fetchClient(id);
     }, [id]);
 
-    const {
-        data: client,
-        error,
-        setData,
-        isLoading
-    } = useFetch(apiCall);
+    const { data: client, error, setData, isLoading } = useFetch(apiCall);
 
     if (isLoading) {
         return <Spinner />;
@@ -37,14 +32,15 @@ const ClientDetailContainer = () => {
             <AdminRoute path={Routes.Clients.Edit}>
                 <EditClient
                     client={client}
-                    onUpdate={(data) => setData(data)}/>
+                    onUpdate={(data) => setData(data)}
+                />
             </AdminRoute>
             <Route path={Routes.Clients.Detail}>
                 <ClientDetail client={client} />
             </Route>
             <Redirect to={Routes.Clients} />
         </Switch>
-    )
+    );
 };
 
 export default ClientDetailContainer;

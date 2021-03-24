@@ -10,6 +10,6 @@ const AdminContainer = ({ children }) => {
     }
 
     return children;
-}
+};
 
 export default AdminContainer;

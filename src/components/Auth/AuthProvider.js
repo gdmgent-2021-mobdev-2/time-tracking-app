@@ -35,14 +35,12 @@ const AuthProvider = () => {
             </Route>
             <Redirect to={Routes.Login} />
         </Switch>
-    )
+    );
 };
 
 const useAuth = () => {
     return useContext(AuthContext);
-}
-export {
-    useAuth,
-}
+};
+export { useAuth };
 
 export default AuthProvider;

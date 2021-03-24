@@ -23,12 +23,13 @@ const EditProject = ({ project, onUpdate }) => {
                 history.push(
                     route(Routes.Projects.Detail, {
                         id: data._id,
-                    }));
+                    })
+                );
             })
             .catch((err) => {
                 setError(err);
                 setIsLoading(false);
-            })
+            });
     };
 
     return (
@@ -43,7 +44,7 @@ const EditProject = ({ project, onUpdate }) => {
                 disabled={isLoading}
             />
         </>
-    )
+    );
 };
 
 export default EditProject;

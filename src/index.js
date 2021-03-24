@@ -5,10 +5,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import AuthProvider from './components/Auth/AuthProvider';
 
 ReactDOM.render(
-  <React.StrictMode>
-      <Router>
-          <AuthProvider />
-      </Router>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Router>
+            <AuthProvider />
+        </Router>
+    </React.StrictMode>,
+    document.getElementById('root')
 );

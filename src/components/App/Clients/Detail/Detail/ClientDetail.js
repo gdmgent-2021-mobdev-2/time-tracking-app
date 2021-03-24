@@ -8,7 +8,8 @@ const ClientDetail = ({ client }) => {
         <>
             <PageHeader title={client.company}>
                 <AdminContainer>
-                    <LinkButton to={route(Routes.Clients.Edit, { id: client.id })}>
+                    <LinkButton
+                        to={route(Routes.Clients.Edit, { id: client.id })}>
                         Edit client
                     </LinkButton>
                 </AdminContainer>

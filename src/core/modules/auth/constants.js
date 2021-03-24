@@ -3,6 +3,4 @@ const Roles = {
     user: 'user',
 };
 
-export {
-    Roles,
-};
+export { Roles };

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { getValidationErrors } from '../utils/validation';
 
-
 const useForm = (initialSchema, initialData) => {
     const [isTouched, setIsTouched] = useState(false);
     const [values, setValues] = useState({ ...initialData });
@@ -17,7 +16,8 @@ const useForm = (initialSchema, initialData) => {
     };
 
     const validate = useCallback((values, onSuccess) => {
-        schemaRef.current.validate(values, { abortEarly: false })
+        schemaRef.current
+            .validate(values, { abortEarly: false })
             .then(() => {
                 if (onSuccess) {
                     onSuccess();
@@ -25,7 +25,8 @@ const useForm = (initialSchema, initialData) => {
                     // no errors and no success method, make sure we clear errors
                     setErrors({});
                 }
-            }).catch((err) => {
+            })
+            .catch((err) => {
                 setErrors(getValidationErrors(err));
             });
     }, []);
@@ -37,7 +38,7 @@ const useForm = (initialSchema, initialData) => {
         setIsTouched(true);
         validate(values, () => {
             callback(values);
-        })
+        });
     };
 
     useEffect(() => {
@@ -52,7 +53,7 @@ const useForm = (initialSchema, initialData) => {
         errors,
         handleChange,
         handleSubmit,
-    }
+    };
 };
 
 export default useForm;

@@ -23,12 +23,13 @@ const EditClient = ({ client, onUpdate }) => {
                 history.push(
                     route(Routes.Clients.Detail, {
                         id: data._id,
-                    }));
+                    })
+                );
             })
             .catch((err) => {
                 setError(err);
                 setIsLoading(false);
-            })
+            });
     };
 
     return (
@@ -43,7 +44,7 @@ const EditClient = ({ client, onUpdate }) => {
                 disabled={isLoading}
             />
         </>
-    )
+    );
 };
 
 export default EditClient;

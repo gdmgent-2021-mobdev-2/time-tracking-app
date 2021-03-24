@@ -5,28 +5,27 @@ const Select = React.forwardRef(
     ({ label, name, options = [], onChange, value, error, disabled }, ref) => {
         return (
             <div className="form-group">
-                { label && <label htmlFor={name}>{label}</label> }
-                <select className={`form-control ${error ? 'is-invalid' : ''}`}
-                       name={name}
-                       ref={ref}
-                       disabled={disabled}
-                       value={value || ''}
-                       onChange={onChange}>
+                {label && <label htmlFor={name}>{label}</label>}
+                <select
+                    className={`form-control ${error ? 'is-invalid' : ''}`}
+                    name={name}
+                    ref={ref}
+                    disabled={disabled}
+                    value={value || ''}
+                    onChange={onChange}>
                     <option>--</option>
-                    {
-                        options && options.map((option) => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))
-                    }
+                    {options &&
+                        options.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
                 </select>
-                {error && (
-                    <div className="invalid-feedback">
-                        {error}
-                    </div>
-                )}
+                {error && <div className="invalid-feedback">{error}</div>}
             </div>
-        )
-    });
+        );
+    }
+);
 
 Select.propTypes = {
     label: PropTypes.string,

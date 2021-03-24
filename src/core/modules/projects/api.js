@@ -6,7 +6,6 @@ const fetchProjects = () => (headers) => {
     });
 };
 
-
 const fetchProject = (id) => (headers) => {
     return fetch(`${process.env.REACT_APP_BASE_API}/projects/${id}`, {
         headers: createHeaders(headers),
@@ -30,9 +29,4 @@ const updateProject = (data) => (headers) => {
     });
 };
 
-export {
-    fetchProjects,
-    fetchProject,
-    createProject,
-    updateProject,
-}
+export { fetchProjects, fetchProject, createProject, updateProject };

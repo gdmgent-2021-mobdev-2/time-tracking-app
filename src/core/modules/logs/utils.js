@@ -11,10 +11,7 @@ const parseStringToMinutes = (string) => {
     const parts = string.split(':');
     const hours = parseInt(parts[0]);
     const minutes = parseInt(parts[1]);
-    return (hours * 60) + minutes;
+    return hours * 60 + minutes;
 };
 
-export {
-    formatMinutesToString,
-    parseStringToMinutes,
-}
+export { formatMinutesToString, parseStringToMinutes };

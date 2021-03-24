@@ -1,8 +1,8 @@
 import { createHeaders } from '../../utils/api';
 
-const fetchUsers = () => headers => {
+const fetchUsers = () => (headers) => {
     return fetch(`${process.env.REACT_APP_BASE_API}/users`, {
-        headers: createHeaders(headers)
+        headers: createHeaders(headers),
     });
 };
 

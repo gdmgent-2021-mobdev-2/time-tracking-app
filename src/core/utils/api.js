@@ -9,20 +9,16 @@ const handleApiResult = async (res) => {
 };
 
 const createHeaders = (extra = {}) => ({
-      'Content-Type': 'application/json',
-      ...extra,
+    'Content-Type': 'application/json',
+    ...extra,
 });
 
 const createAuthHeader = (token) => ({
-    'Authorization': `Bearer ${token}`,
-})
+    Authorization: `Bearer ${token}`,
+});
 
 const withToken = (promise, token) => {
     return promise(createAuthHeader(token));
 };
 
-export {
-    handleApiResult,
-    createHeaders,
-    withToken,
-}
+export { handleApiResult, createHeaders, withToken };

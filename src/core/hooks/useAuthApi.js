@@ -7,25 +7,27 @@ import AppError from '../error/AppError';
 const useAuthApi = () => {
     const { token, logout } = useAuth();
 
-    const withAuth = useCallback((promise) => {
-        return new Promise((resolve, reject) => {
-            withToken(promise, token)
-                .then(handleApiResult)
-                .then((data) => resolve(data))
-                .catch((error) => {
-                    if (error instanceof ApiError) {
-                        if (error.isUnauthorized()) {
-                            logout();
+    const withAuth = useCallback(
+        (promise) => {
+            return new Promise((resolve, reject) => {
+                withToken(promise, token)
+                    .then(handleApiResult)
+                    .then((data) => resolve(data))
+                    .catch((error) => {
+                        if (error instanceof ApiError) {
+                            if (error.isUnauthorized()) {
+                                logout();
+                            } else {
+                                reject(error);
+                            }
                         } else {
-                            reject(error);
+                            reject(new AppError(error));
                         }
-                    } else {
-                        reject(new AppError(error));
-                    }
-                })
-
-        });
-    }, [logout, token]);
+                    });
+            });
+        },
+        [logout, token]
+    );
 
     return withAuth;
 };
