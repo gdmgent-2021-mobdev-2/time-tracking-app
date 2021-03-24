@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import useFetch from '../../../../core/hooks/useFetch';
 import Spinner from '../../../Design/Spinner';
 import AdminRoute from '../../../Shared/Admin/AdminRoute';
-import ErrorAlert from '../../../Shared/ErrorAlert';
+import ErrorAlert from '../../../Shared/Alert/ErrorAlert';
 import ProjectDetail from './Detail/ProjectDetail';
 import { fetchProject } from '../../../../core/modules/projects/api';
 import EditProject from './Edit/EditProject';

@@ -1,26 +1,25 @@
 import { route, Routes } from '../../../../../core/routing';
 import AdminContainer from '../../../../Shared/Admin/AdminContainer';
-import LinkButton from '../../../../Shared/LinkButton';
+import LinkButton from '../../../../Shared/Button/LinkButton';
 import LogsOverview from '../Logs/Overview/LogsOverview';
+import PageHeader from '../../../../Shared/Header/PageHeader';
 
 const ProjectDetail = ({ project }) => {
     return (
         <>
-            <div className="row">
-                <div className="col-sm-8">
-                    <h1>{project.name}</h1>
-                    <p>Client: {project.client.company}</p>
-                </div>
-                <div className="col-sm-4">
-                    <AdminContainer>
-                        <LinkButton to={route(Routes.Projects.Edit, { id: project._id })}>
-                            Edit project
-                        </LinkButton>
-                    </AdminContainer>
-                </div>
-            </div>
+            <PageHeader title={project.name}>
+                <AdminContainer>
+                    <LinkButton to={route(Routes.Projects.Edit, { id: project._id })}>
+                        Edit project
+                    </LinkButton>
+                </AdminContainer>
+            </PageHeader>
 
-            <h2 className="mt-4">Logs</h2>
+            <dl>
+                <dt>Client</dt>
+                <dd>{ project.client.company }</dd>
+            </dl>
+
             <LogsOverview projectId={project._id} />
         </>
     );

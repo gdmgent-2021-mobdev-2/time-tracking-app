@@ -3,8 +3,11 @@ import { route, Routes } from '../../../../core/routing';
 import useFetch from '../../../../core/hooks/useFetch';
 import Spinner from '../../../Design/Spinner';
 import { fetchProjects } from '../../../../core/modules/projects/api';
-import useAdmin from '../../../../core/hooks/useAdmin';
-import ErrorAlert from '../../../Shared/ErrorAlert';
+import ErrorAlert from '../../../Shared/Alert/ErrorAlert';
+import LinkButton from '../../../Shared/Button/LinkButton';
+import PageHeader from '../../../Shared/Header/PageHeader';
+import AdminContainer from '../../../Shared/Admin/AdminContainer';
+import Card from '../../../Design/Card';
 
 const ProjectsOverview = () => {
     const {
@@ -12,8 +15,6 @@ const ProjectsOverview = () => {
         error,
         isLoading,
     } = useFetch(fetchProjects);
-
-    const admin = useAdmin();
 
     if (isLoading) {
         return <Spinner/>;
@@ -25,15 +26,20 @@ const ProjectsOverview = () => {
 
     return (
         <>
-            <h1>Projects</h1>
+            <PageHeader title="Projects">
+                <AdminContainer>
+                    <LinkButton to={Routes.Projects.New}>Create project</LinkButton>
+                </AdminContainer>
+            </PageHeader>
 
-            { admin && <Link to={Routes.Projects.New}>Create project</Link> }
-
-            <ul>
+            <ul className="row list-unstyled">
                 {projects.map((project) => (
-                    <li key={project._id}>
+                    <li className="col-sm-4 my-2" key={project._id}>
                         <Link to={route(Routes.Projects.Detail, { id: project._id })}>
-                            {project.name}
+                            <Card>
+                                <h2 className="h4">{project.name}</h2>
+                                <p className="text-black-50">{project.client.company}</p>
+                            </Card>
                         </Link>
                     </li>
                 ))}

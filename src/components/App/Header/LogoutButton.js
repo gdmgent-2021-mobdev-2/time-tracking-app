@@ -2,10 +2,10 @@ import { useAuth } from '../../Auth/AuthProvider';
 import Button from '../../Design/Button';
 
 const LogoutButton = () => {
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
 
     return (
-        <Button onClick={logout} color="outline-light">Sign out</Button>
+        <Button onClick={logout} color="outline-light">Sign out {user.name}</Button>
     );
 };
 

@@ -1,4 +1,4 @@
-import Alert from '../Design/Alert';
+import Alert from '../../Design/Alert';
 
 const ErrorAlert = ({ error }) => {
     if (!error) {

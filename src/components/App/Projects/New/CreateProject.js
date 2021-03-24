@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import useAuthApi from '../../../../core/hooks/useAuthApi';
 import { createProject } from '../../../../core/modules/projects/api';
-import ErrorAlert from '../../../Shared/ErrorAlert';
+import ErrorAlert from '../../../Shared/Alert/ErrorAlert';
 import { useHistory } from 'react-router';
 import { Routes } from '../../../../core/routing';
 import ProjectForm from '../Form/ProjectForm';
+import PageHeader from '../../../Shared/Header/PageHeader';
 
 const CreateProject = () => {
     const withAuth = useAuthApi();
@@ -26,7 +27,7 @@ const CreateProject = () => {
 
     return (
         <>
-            <h1>Create project</h1>
+            <PageHeader title="Create project" />
 
             <ErrorAlert error={error} />
 

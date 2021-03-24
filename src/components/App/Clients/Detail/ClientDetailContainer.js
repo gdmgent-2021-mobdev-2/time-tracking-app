@@ -8,7 +8,7 @@ import { Routes } from '../../../../core/routing';
 import EditClient from './Edit/EditClient';
 import ClientDetail from './Detail/ClientDetail';
 import AdminRoute from '../../../Shared/Admin/AdminRoute';
-import ErrorAlert from '../../../Shared/ErrorAlert';
+import ErrorAlert from '../../../Shared/Alert/ErrorAlert';
 
 const ClientDetailContainer = () => {
     const { id } = useParams();
@@ -16,8 +16,6 @@ const ClientDetailContainer = () => {
     const apiCall = useCallback(() => {
         return fetchClient(id);
     }, [id]);
-
-    // todo error object
 
     const {
         data: client,

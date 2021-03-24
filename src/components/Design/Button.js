@@ -16,7 +16,7 @@ Button.propTypes = {
     onClick: PropTypes.func,
     type: PropTypes.oneOf(['button', 'reset', 'submit']),
     disabled: PropTypes.bool,
-    color: PropTypes.oneOf(['primary', 'secondary', 'light', 'outline-light', 'danger']),
+    color: PropTypes.oneOf(['primary', 'secondary', 'light', 'outline-light', 'outline-primary', 'outline-secondary', 'danger']),
 };
 
 export default Button;

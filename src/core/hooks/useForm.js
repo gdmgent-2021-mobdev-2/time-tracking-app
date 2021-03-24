@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { getValidationErrors } from '../utils/validation';
 
 
-const useForm = (schema, initialData) => {
+const useForm = (initialSchema, initialData) => {
     const [isTouched, setIsTouched] = useState(false);
     const [values, setValues] = useState({ ...initialData });
     const [errors, setErrors] = useState({});
+    // we don't listen to schema changes
+    const schemaRef = useRef(initialSchema);
 
     const handleChange = (e) => {
         setValues({
@@ -15,7 +17,7 @@ const useForm = (schema, initialData) => {
     };
 
     const validate = useCallback((values, onSuccess) => {
-        schema.validate(values, { abortEarly: false })
+        schemaRef.current.validate(values, { abortEarly: false })
             .then(() => {
                 if (onSuccess) {
                     onSuccess();
@@ -26,7 +28,7 @@ const useForm = (schema, initialData) => {
             }).catch((err) => {
                 setErrors(getValidationErrors(err));
             });
-    }, [schema]);
+    }, []);
 
     // wrapper method for handling submit
     // this way, we don't have to pass success callback in useForm constructor

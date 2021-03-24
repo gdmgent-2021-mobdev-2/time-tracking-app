@@ -41,6 +41,7 @@ const ProjectForm = ({ onSubmit, initialData = {}, disabled }) => {
 
            <ClientSelect
                name="clientId"
+               label="Client"
                value={values.clientId}
                disabled={disabled}
                onChange={handleChange}

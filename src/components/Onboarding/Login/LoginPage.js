@@ -9,7 +9,7 @@ import { login } from '../../../core/modules/auth/api';
 import { handleApiResult } from '../../../core/utils/api';
 import ApiError from '../../../core/error/ApiError';
 import AppError from '../../../core/error/AppError';
-import ErrorAlert from '../../Shared/ErrorAlert';
+import ErrorAlert from '../../Shared/Alert/ErrorAlert';
 import useTitle from '../../../core/hooks/useTitle';
 
 const schema = yup.object().shape({

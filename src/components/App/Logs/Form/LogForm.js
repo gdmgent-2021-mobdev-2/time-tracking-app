@@ -5,32 +5,36 @@ import useForm from '../../../../core/hooks/useForm';
 import { format } from 'date-fns';
 import TimeInput from '../../Projects/Detail/Logs/Time/TimeInput';
 import UserSelect from '../../User/Select/UserSelect';
+import ProjectSelect from '../../Projects/Select/ProjectSelect';
 
-const schema = yup.object().shape({
-    date: yup.string().required(),
-    description: yup.string().required(),
-    duration: yup.number().required().nullable(),
-    // todo userId
-});
+const getSchema = (options) => {
+    return yup.object().shape({
+        date: yup.string().required(),
+        description: yup.string().required(),
+        duration: yup.number().required().nullable(),
+        projectId: options.selectProject ? yup.string().nullable().required() : yup.string().nullable(),
+        userId: options.selectUser ? yup.string().nullable().required() : yup.string().nullable(),
+    });
+};
 
 const defaultData = {
     date: format(new Date(), 'yyyy-MM-dd'),
     description: '',
     duration: null,
-    // todo userId
 }
 
-const ClientForm = ({ onSubmit, initialData = {}, disabled }) => {
+const LogForm = ({ onSubmit, initialData = {}, options = {}, disabled }) => {
     const initial = {
         ...defaultData,
         ...initialData,
     };
+
     const {
         values,
         errors,
         handleChange,
         handleSubmit,
-    } = useForm(schema, initial);
+    } = useForm(getSchema(options), initial);
 
     const handleData = (values) => {
         onSubmit(values);
@@ -52,14 +56,27 @@ const ClientForm = ({ onSubmit, initialData = {}, disabled }) => {
                    onChange={handleChange}
                    error={errors.description}/>
 
-           <UserSelect
-               name="userId"
-               value={values.userId}
-               label="User"
-               disabled={disabled}
-               onChange={handleChange}
-               error={errors.userId}
-            />
+            { options.selectUser && (
+                <UserSelect
+                    name="userId"
+                    value={values.userId}
+                    label="User"
+                    disabled={disabled}
+                    onChange={handleChange}
+                    error={errors.userId}
+                />
+            )}
+
+            { options.selectProject && (
+                <ProjectSelect
+                    name="projectId"
+                    value={values.projectId}
+                    label="Project"
+                    disabled={disabled}
+                    onChange={handleChange}
+                    error={errors.projectId}
+                />
+            )}
 
             <TimeInput name="duration"
                    value={values.duration}
@@ -75,4 +92,4 @@ const ClientForm = ({ onSubmit, initialData = {}, disabled }) => {
 
 };
 
-export default ClientForm;
+export default LogForm;

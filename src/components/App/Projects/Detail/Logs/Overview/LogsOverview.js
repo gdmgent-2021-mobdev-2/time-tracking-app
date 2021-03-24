@@ -2,12 +2,14 @@ import { useCallback, useState } from 'react';
 import useFetch from '../../../../../../core/hooks/useFetch';
 import useAdmin from '../../../../../../core/hooks/useAdmin';
 import Spinner from '../../../../../Design/Spinner';
-import ErrorAlert from '../../../../../Shared/ErrorAlert';
+import ErrorAlert from '../../../../../Shared/Alert/ErrorAlert';
 import { fetchLogsByProject } from '../../../../../../core/modules/logs/api';
 import Button from '../../../../../Design/Button';
 import { format, parse } from 'date-fns';
 import { formatMinutesToString } from '../../../../../../core/modules/logs/utils';
-import EditLog from '../Edit/EditLog';
+import CreateOrEditLog from '../Form/CreateOrEditLog';
+import Icon from '../../../../../Design/Icon/Icon';
+import { ReactComponent as EditIcon } from '../../../../../../assets/icons/edit.svg';
 
 const LogsOverview = ({ projectId }) => {
     const fetchLogs = useCallback(() => fetchLogsByProject(projectId), [projectId]);
@@ -26,7 +28,7 @@ const LogsOverview = ({ projectId }) => {
         setCurrentLog({});
     }
 
-    const handleLogUpdate = (log) => {
+    const handleLogUpdate = () => {
         setCurrentLog(null);
         refresh();
     }
@@ -41,7 +43,10 @@ const LogsOverview = ({ projectId }) => {
 
     return (
         <>
-            <Button onClick={handleCreateLog}>Create Log</Button>
+            <div className="d-flex justify-content-between mt-5 mb-2">
+                <h2>Logs</h2>
+                <Button color="outline-primary" onClick={handleCreateLog}>Create Log</Button>
+            </div>
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -60,7 +65,7 @@ const LogsOverview = ({ projectId }) => {
                         <td>{ log.description }</td>
                         { admin && <td>{ log.user?.name }</td> }
                         <td>
-                            <Button color="secondary" onClick={() => setCurrentLog(log)}>✏️</Button>
+                            <Button color="outline-secondary" onClick={() => setCurrentLog(log)}><Icon element={<EditIcon />} />️</Button>
                         </td>
                     </tr>
                 ))}
@@ -69,9 +74,10 @@ const LogsOverview = ({ projectId }) => {
 
             {
                 currentLog &&
-                    <EditLog projectId={projectId}
-                             log={currentLog}
-                             onUpdate={handleLogUpdate} />
+                    <CreateOrEditLog projectId={projectId}
+                                     log={currentLog}
+                                     onUpdate={handleLogUpdate}
+                                     onDismiss={() => setCurrentLog(null)} />
             }
         </>
     )

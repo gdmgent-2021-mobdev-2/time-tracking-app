@@ -2,9 +2,10 @@ import { useState } from 'react';
 import ClientForm from '../../Form/ClientForm';
 import useAuthApi from '../../../../../core/hooks/useAuthApi';
 import { updateClient } from '../../../../../core/modules/clients/api';
-import ErrorAlert from '../../../../Shared/ErrorAlert';
+import ErrorAlert from '../../../../Shared/Alert/ErrorAlert';
 import { useHistory } from 'react-router';
 import { route, Routes } from '../../../../../core/routing';
+import PageHeader from '../../../../Shared/Header/PageHeader';
 
 const EditClient = ({ client, onUpdate }) => {
     const withAuth = useAuthApi();
@@ -32,7 +33,7 @@ const EditClient = ({ client, onUpdate }) => {
 
     return (
         <>
-            <h1>Edit client</h1>
+            <PageHeader title="Edit client" />
 
             <ErrorAlert error={error} />
 

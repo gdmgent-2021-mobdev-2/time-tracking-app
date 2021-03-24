@@ -2,9 +2,10 @@ import { useState } from 'react';
 import ClientForm from '../Form/ClientForm';
 import useAuthApi from '../../../../core/hooks/useAuthApi';
 import { createClient } from '../../../../core/modules/clients/api';
-import ErrorAlert from '../../../Shared/ErrorAlert';
+import ErrorAlert from '../../../Shared/Alert/ErrorAlert';
 import { useHistory } from 'react-router';
 import { Routes } from '../../../../core/routing';
+import PageHeader from '../../../Shared/Header/PageHeader';
 
 const CreateClient = () => {
     const withAuth = useAuthApi();
@@ -26,7 +27,7 @@ const CreateClient = () => {
 
     return (
         <>
-            <h1>Create client</h1>
+            <PageHeader title="Create client" />
 
             <ErrorAlert error={error} />
 
