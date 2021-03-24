@@ -11,21 +11,12 @@ const getSchema = (options) => {
     return yup.object().shape({
         date: yup.string().required(),
         description: yup.string().required(),
-        duration: yup
-            .number()
-            .required()
-            .nullable(),
+        duration: yup.number().required().nullable(),
         projectId: options.selectProject
-            ? yup
-                  .string()
-                  .nullable()
-                  .required()
+            ? yup.string().nullable().required()
             : yup.string().nullable(),
         userId: options.selectUser
-            ? yup
-                  .string()
-                  .nullable()
-                  .required()
+            ? yup.string().nullable().required()
             : yup.string().nullable(),
     });
 };
