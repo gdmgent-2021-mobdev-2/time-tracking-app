@@ -6,10 +6,7 @@ import ClientSelect from '../../Clients/Select/ClientSelect';
 
 const schema = yup.object().shape({
     name: yup.string().required(),
-    clientId: yup
-        .string()
-        .required()
-        .nullable(),
+    clientId: yup.string().required().nullable(),
 });
 
 const defaultData = {

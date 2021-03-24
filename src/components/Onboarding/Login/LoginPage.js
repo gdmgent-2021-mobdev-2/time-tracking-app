@@ -13,10 +13,7 @@ import ErrorAlert from '../../Shared/Alert/ErrorAlert';
 import useTitle from '../../../core/hooks/useTitle';
 
 const schema = yup.object().shape({
-    email: yup
-        .string()
-        .email()
-        .required(),
+    email: yup.string().email().required(),
     password: yup.string().required(),
 });
 

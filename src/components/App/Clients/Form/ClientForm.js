@@ -4,10 +4,7 @@ import * as yup from 'yup';
 import useForm from '../../../../core/hooks/useForm';
 
 const schema = yup.object().shape({
-    email: yup
-        .string()
-        .email()
-        .required(),
+    email: yup.string().email().required(),
     company: yup.string().required(),
     firstName: yup.string().required(),
     lastName: yup.string().required(),

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useReducer } from 'react';
+import { useEffect, useCallback, useReducer } from 'react';
 import useAuthApi from './useAuthApi';
 
 const initialState = {
@@ -20,13 +20,13 @@ const reducer = (state, action) => {
         case Actions.Prev:
             return {
                 ...state,
-                page: Math.max(action.page - 1, 1),
+                page: Math.max(state.page - 1, 1),
                 data: null,
             };
         case Actions.Next:
             return {
                 ...state,
-                page: action.page + 1,
+                page: state.page + 1,
                 data: null,
             };
         case Actions.Clear:
@@ -50,29 +50,31 @@ const reducer = (state, action) => {
     }
 };
 
-const setData = (data) => ({ type: Actions.Data, payload: data });
-const nextPage = () => ({ type: Actions.Next });
-const prevPage = () => ({ type: Actions.Prev });
-const setError = (error) => ({ type: Actions.Error, payload: error });
-
 const useFetch = (apiCall) => {
     const withAuth = useAuthApi();
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const { page, data, error } = state;
+    const { data, error } = state;
 
-    const updateData = useCallback((data) => {
-        dispatch(setData(data));
-    }, []);
+    const nextPage = useCallback(() => dispatch({ type: Actions.Next }), []);
+    const prevPage = useCallback(() => dispatch({ type: Actions.Prev }), []);
+    const setData = useCallback(
+        (data) => dispatch({ type: Actions.Data, payload: data }),
+        []
+    );
+    const setError = useCallback(
+        (error) => dispatch({ type: Actions.Error, payload: error }),
+        []
+    );
 
     const fetchData = useCallback(
         (isCurrent = true) => {
             withAuth(apiCall())
-                .then((data) => isCurrent && dispatch(setData(data)))
-                .catch((error) => isCurrent && dispatch(setError(error)));
+                .then((data) => isCurrent && setData(data))
+                .catch((error) => isCurrent && setError(error));
         },
-        [apiCall, withAuth]
+        [setData, setError, apiCall, withAuth]
     );
 
     const refresh = () => {
@@ -83,9 +85,7 @@ const useFetch = (apiCall) => {
         dispatch({ type: Actions.Clear });
         if (apiCall) {
             let isCurrent = true;
-
             fetchData(isCurrent);
-
             return () => {
                 isCurrent = false;
             };
@@ -96,7 +96,7 @@ const useFetch = (apiCall) => {
 
     return {
         data,
-        setData: updateData,
+        setData,
         error,
         nextPage,
         prevPage,
