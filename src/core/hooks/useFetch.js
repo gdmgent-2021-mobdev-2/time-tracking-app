@@ -70,14 +70,14 @@ const useFetch = (apiCall) => {
 
     const fetchData = useCallback(
         () => {
-            let isCurrent = false;
+            let isCurrent = true;
 
             withAuth(apiCall())
                 .then((data) => isCurrent && setData(data))
                 .catch((error) => isCurrent && setError(error));
 
             return () => {
-                isCurrent = true;
+                isCurrent = false;
             }
         },
         [setData, setError, apiCall, withAuth]
