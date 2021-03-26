@@ -69,10 +69,16 @@ const useFetch = (apiCall) => {
     );
 
     const fetchData = useCallback(
-        (isCurrent = true) => {
+        () => {
+            let isCurrent = false;
+
             withAuth(apiCall())
                 .then((data) => isCurrent && setData(data))
                 .catch((error) => isCurrent && setError(error));
+
+            return () => {
+                isCurrent = true;
+            }
         },
         [setData, setError, apiCall, withAuth]
     );
@@ -84,11 +90,8 @@ const useFetch = (apiCall) => {
     useEffect(() => {
         dispatch({ type: Actions.Clear });
         if (apiCall) {
-            let isCurrent = true;
-            fetchData(isCurrent);
-            return () => {
-                isCurrent = false;
-            };
+            const cleanUp = fetchData();
+            return cleanUp;
         }
     }, [apiCall, fetchData]);
 
